@@ -22,14 +22,20 @@ Button knopd;
 Button knopP;
 Button knopm;
 
+Button knopA;
+Button knopB;
+Button knopK;
+Button knopE;
+
 Textfield tekstveld1;
+Textfield tekstveld2;
 
 String input;  // De invoerstring uit het tekstveld
 ArrayList<Float> getallen = new ArrayList<Float>(); // Array voor getallen
 ArrayList<String> operatoren = new ArrayList<String>(); // Array voor operatoren
 
 void setup(){
-  size(400,600);
+  size(500,600);
   
   input = "";
   
@@ -67,11 +73,13 @@ void setup(){
   knop9.getCaptionLabel().setFont(createFont("Arial", 50));
   
   
+  
   knopis = cp.addButton("knopis").setPosition(200,500).setSize(100,100).setCaptionLabel("=").setColorLabel(color(255,0,0));
   knopis.getCaptionLabel().setFont(createFont("Arial", 50));
   
   knopC = cp.addButton("knopC").setPosition(0,500).setSize(100,100).setCaptionLabel("C").setColorLabel(color(255,0,0));
   knopC.getCaptionLabel().setFont(createFont("Arial", 50));
+  
 
   
   knopx = cp.addButton("knopx").setPosition(300,500).setSize(100,100).setCaptionLabel("*").setColorLabel(color(255,0,0));
@@ -86,16 +94,40 @@ void setup(){
   knopm = cp.addButton("knopm").setPosition(300,200).setSize(100,100).setCaptionLabel("-").setColorLabel(color(255,0,0));
   knopm.getCaptionLabel().setFont(createFont("Arial", 50));
   
+  
+  
+  knopA = cp.addButton("knopA").setPosition(400,500).setSize(100,100).setCaptionLabel("?").setColorLabel(color(255,0,0));
+  knopA.getCaptionLabel().setFont(createFont("Arial", 50));
+  
+  knopB = cp.addButton("knopB").setPosition(400,300).setSize(100,100).setCaptionLabel("Back").setColorLabel(color(255,0,0));
+  knopB.getCaptionLabel().setFont(createFont("Arial", 20));
+  
+  knopK = cp.addButton("knopK").setPosition(400,400).setSize(100,100).setCaptionLabel(".").setColorLabel(color(255,0,0));
+  knopK.getCaptionLabel().setFont(createFont("Arial", 50));
+  
+  knopE = cp.addButton("knopE").setPosition(400,200).setSize(100,100).setCaptionLabel("Exit").setColorLabel(color(255,0,0));
+  knopE.getCaptionLabel().setFont(createFont("Arial", 30));
+  
  //het tekstveld waar de sommen in worden gezet
  tekstveld1 = cp
 .addTextfield("textinput1") 
 .setPosition(0,0)
-.setSize(400,200)
+.setSize(500,100)
 .setText("") 
 .setCaptionLabel("") 
 .setColorLabel(color(255,0,0));
 
 tekstveld1.getValueLabel().setFont(createFont("Arial", 20));
+
+tekstveld2 = cp
+.addTextfield("textinput2") 
+.setPosition(0,100)
+.setSize(500,100)
+.setText("") 
+.setCaptionLabel("") 
+.setColorLabel(color(255,0,0));
+
+tekstveld2.getValueLabel().setFont(createFont("Arial", 20));
 }
 
 //de knoppen zetten de aangegeven operator of getal in het tekstveld 
@@ -155,6 +187,28 @@ void knopm(){
  tekstveld1.setText(tekstveld1.getText() + "-"); 
 }
 
+void knopA(){
+ tekstveld2.clear();
+}
+
+void knopB(){
+ String tekst = tekstveld1.getText();
+  if (tekst.length() > 0) {
+    // Verwijder het laatste teken
+    tekst = tekst.substring(0, tekst.length() - 1);
+    tekstveld1.setText(tekst);
+  } 
+}
+
+void knopK(){
+ tekstveld1.setText(tekstveld1.getText() + "."); 
+}
+
+//om uit de rekenmachine te gaan
+void knopE(){
+exit();
+}
+
 
 //voor het clearen van wat er staat
 void knopC(){
@@ -206,6 +260,7 @@ void knopis(){
   
 
  tekstveld1.setText(tekstveld1.getText() + " = " + resultaat);
+ tekstveld2.setText(tekstveld2.getText() + " " + resultaat);
  println(tekstveld1.getText() + " = " + resultaat);
  println(getallen);
  println(operatoren);
